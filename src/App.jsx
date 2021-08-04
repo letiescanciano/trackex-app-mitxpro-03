@@ -2,6 +2,9 @@ import "./App.css";
 import styled from "styled-components";
 
 import { NavBar } from "./components/NavBar";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import Button from "@material-ui/core/Button";
 
 const data = [
   {
@@ -98,6 +101,10 @@ const Amount = styled.p`
 //   color: green;
 // `;
 
+const Grid = styled.div`
+  width: 100%;
+  padding: 64px;
+`;
 function App() {
   // const amountCell = (transaction) => {
   //   // switch(transaction.type)
@@ -111,36 +118,63 @@ function App() {
   return (
     <div className='layout'>
       <NavBar />
-      <Table>
-        <thead>
-          <tr>
-            <HeadCell>Date</HeadCell>
-            <HeadCell>Name</HeadCell>
-            <HeadCell>Category</HeadCell>
-            <HeadCell>Amount</HeadCell>
-            <HeadCell>Actions</HeadCell>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((transaction) => {
-            /* console.log("transaction", transaction); */
-            return (
-              <tr key={transaction.id}>
-                <TableCell>{transaction.date}</TableCell>
-                <TableCell>{transaction.name}</TableCell>
-                <TableCell>{transaction.category}</TableCell>
-                <TableCell>
-                  <Amount type={transaction.type}>{transaction.amount}</Amount>
-                </TableCell>
+      <Grid>
+        <Button
+          onClick={() => {
+            console.log("Abrir formulario");
+          }}
+          style={{ backgroundColor: "#ff7661" }}
+          variant='contained'
+        >
+          + Add Transaction
+        </Button>
+        <Table>
+          <thead>
+            <tr>
+              <HeadCell>Date</HeadCell>
+              <HeadCell>Name</HeadCell>
+              <HeadCell>Category</HeadCell>
+              <HeadCell>Amount</HeadCell>
+              <HeadCell>Actions</HeadCell>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((transaction) => {
+              /* console.log("transaction", transaction); */
+              return (
+                <tr key={transaction.id}>
+                  <TableCell>{transaction.date}</TableCell>
+                  <TableCell>{transaction.name}</TableCell>
+                  <TableCell>{transaction.category}</TableCell>
+                  <TableCell>
+                    <Amount type={transaction.type}>
+                      {transaction.amount}
+                    </Amount>
+                  </TableCell>
 
-                {/* {amountCell(transaction)} */}
+                  {/* {amountCell(transaction)} */}
 
-                <TableCell>Edit/Delete</TableCell>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+                  <TableCell>
+                    <EditIcon
+                      style={{ marginRight: "16px" }}
+                      onClick={() => {
+                        console.log("editar transacción");
+                      }}
+                    />
+
+                    <DeleteForeverIcon
+                      style={{ color: "#F94144" }}
+                      onClick={() => {
+                        console.log("borrar transacción");
+                      }}
+                    />
+                  </TableCell>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </Grid>
     </div>
   );
 }
