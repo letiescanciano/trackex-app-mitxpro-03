@@ -31,6 +31,18 @@ const theme = createTheme({
         },
       },
     },
+    MuiFormLabel: {
+      root: {
+        color: "#fff",
+        fontWeight: 600,
+        paddingBottom: "16px",
+      },
+    },
+    MuiRadio: {
+      root: {
+        color: "#fff",
+      },
+    },
   },
 });
 
