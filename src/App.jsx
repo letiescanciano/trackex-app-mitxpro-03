@@ -43,6 +43,22 @@ const theme = createTheme({
         color: "#fff",
       },
     },
+    MuiPaper: {
+      root: {
+        backgroundColor: "#1C2633",
+        color: "white",
+      },
+    },
+    MuiDialogContent: {
+      root: {
+        color: "white",
+      },
+    },
+    MuiDialogContentText: {
+      root: {
+        color: "white",
+      },
+    },
   },
 });
 

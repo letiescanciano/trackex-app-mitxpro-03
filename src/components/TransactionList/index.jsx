@@ -17,6 +17,13 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Paper from "@material-ui/core/Paper";
+
 import data from "./data";
 import { Debug } from "../../aux/Debug";
 
@@ -80,8 +87,25 @@ const RadioOptionsWrapper = styled.div`
 `;
 
 const TransactionList = () => {
+  const emptyInitialValues = {
+    name: "",
+    amount: 0,
+    date: "",
+    category: "",
+    type: "",
+  };
+  const AVAILABLE_MODES = {
+    add: "add",
+    edit: "edit",
+  };
+
+  const DEFAULT_MODE = "add";
+
   const [open, setOpen] = useState(false);
   const [transactions, setTransactions] = useState(data);
+  const [transaction, setTransaction] = useState({});
+  const [mode, setMode] = useState(DEFAULT_MODE);
+  const [openDialog, setOpenDialog] = useState(true);
 
   const transactionSchema = Yup.object().shape({
     name: Yup.string().min(3).required("Required"),
@@ -112,7 +136,13 @@ const TransactionList = () => {
     setTransactions([...transactions, { ...transaction }]);
   };
 
-  const deleteTransaction = (id) => {
+  const handleDelete = (id) => {
+    console.log("delete", id);
+    setTransaction({ id });
+    setOpenDialog(true);
+  };
+  const deleteTransaction = () => {
+    const { id } = transaction;
     console.log("deleteTransaction id", id);
     const _transactions = transactions.filter(
       (transaction) => transaction.id !== id
@@ -120,8 +150,40 @@ const TransactionList = () => {
 
     // console.log("_transactions", _transactions);
     setTransactions(_transactions);
+    setOpenDialog(false);
+    setTransaction({});
   };
 
+  const handleEdit = (id) => {
+    // Activate Edit mode
+    setMode(AVAILABLE_MODES.edit);
+    // Search for our transaction
+    const transaction = transactions.find(
+      (transaction) => transaction.id === id
+    );
+    setTransaction(transaction);
+    // Open the drawer
+    setOpen(true);
+
+    // Update state with the updated transaction
+  };
+
+  const editTransaction = (data) => {
+    const _transactionIndex = transactions.findIndex(
+      (transaction) => transaction.id === data.id
+    );
+    const _transactions = [...transactions];
+    _transactions[_transactionIndex] = data;
+
+    setTransactions(_transactions);
+    setMode(DEFAULT_MODE);
+    setTransaction({});
+  };
+
+  const handleClose = () => {
+    setTransaction({});
+    setOpenDialog(false);
+  };
   return (
     <Grid>
       <AddButtonWrapper>
@@ -163,6 +225,7 @@ const TransactionList = () => {
                     style={{ marginRight: "16px" }}
                     onClick={() => {
                       console.log("editar transacción");
+                      handleEdit(transaction.id);
                     }}
                   />
 
@@ -170,7 +233,7 @@ const TransactionList = () => {
                     style={{ color: "#F94144" }}
                     onClick={() => {
                       console.log("borrar transacción");
-                      deleteTransaction(transaction.id);
+                      handleDelete(transaction.id);
                     }}
                   />
                 </TableCell>
@@ -189,21 +252,19 @@ const TransactionList = () => {
         }}
       >
         <Container>
-          <h2>New transaction</h2>
+          <h2>{mode === AVAILABLE_MODES.add ? "New" : "Edit"} transaction</h2>
           <Formik
-            initialValues={{
-              name: "macbook pro",
-              amount: 3330,
-              date: "22/04/2021",
-              category: "electronics",
-              type: "expense",
-            }}
+            initialValues={
+              mode === AVAILABLE_MODES.add ? emptyInitialValues : transaction
+            }
             validationSchema={transactionSchema}
             onSubmit={(values, { setSubmitting }) => {
-              addTransaction({
-                id: uuidv4(),
-                ...values,
-              });
+              mode === AVAILABLE_MODES.add
+                ? addTransaction({
+                    id: uuidv4(),
+                    ...values,
+                  })
+                : editTransaction(values);
               setOpen(false);
             }}
           >
@@ -284,7 +345,13 @@ const TransactionList = () => {
                     </RadioOptionsWrapper>
                     <ActionsWrapper>
                       <Button
-                        onClick={() => setOpen(false)}
+                        onClick={() => {
+                          setOpen(false);
+                          if (mode === AVAILABLE_MODES.edit) {
+                            setTransaction({});
+                            setMode(DEFAULT_MODE);
+                          }
+                        }}
                         variant='outlined'
                         color='primary'
                       >
@@ -307,6 +374,30 @@ const TransactionList = () => {
           </Formik>
         </Container>
       </Drawer>
+      {openDialog && (
+        <Dialog open={openDialog} onClose={handleClose}>
+          <DialogTitle>
+            Are you sure you want to delete this transaction?
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              If you delete it you won't be able to recover it.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color='primary'>
+              Cancel
+            </Button>
+            <Button
+              onClick={deleteTransaction}
+              color='primary'
+              variant='contained'
+            >
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </Grid>
   );
 };
