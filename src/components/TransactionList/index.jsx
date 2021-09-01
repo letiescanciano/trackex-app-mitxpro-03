@@ -25,7 +25,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Paper from "@material-ui/core/Paper";
 
 import data from "./data";
-import { Debug } from "../../aux/Debug";
+import { Debug } from "../../etc/Debug";
 
 const Table = styled.table`
   width: 100%;
