@@ -3,6 +3,7 @@ import "./App.css";
 import { NavBar } from "./components/NavBar";
 import { TransactionList } from "./components/TransactionList";
 import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
+import { TrackexProvider } from "./contexts/trackexContext";
 
 const theme = createTheme({
   palette: {
@@ -64,12 +65,14 @@ const theme = createTheme({
 
 function App() {
   return (
-    <MuiThemeProvider theme={theme}>
-      <div className='layout'>
-        {/* <NavBar /> */}
-        <TransactionList />
-      </div>
-    </MuiThemeProvider>
+    <TrackexProvider>
+      <MuiThemeProvider theme={theme}>
+        <div className='layout'>
+          {/* <NavBar /> */}
+          <TransactionList />
+        </div>
+      </MuiThemeProvider>
+    </TrackexProvider>
   );
 }
 
