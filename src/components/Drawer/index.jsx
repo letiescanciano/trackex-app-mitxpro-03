@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 
 import { Formik, Form } from "formik";
@@ -14,6 +14,8 @@ import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+
+import { TrackexContext } from "../../contexts/trackexContext";
 
 import { Debug } from "../../etc/Debug";
 
@@ -58,6 +60,7 @@ const TransactionDrawer = ({
     amount: Yup.number().required("Required"),
   });
 
+  const { categories, types } = useContext(TrackexContext);
   const AVAILABLE_MODES = {
     add: "add",
     edit: "edit",
@@ -72,18 +75,6 @@ const TransactionDrawer = ({
     type: "",
   };
 
-  const categories = [
-    { value: "eating_out", label: "Eating out" },
-    { value: "clothes", label: "Clothes" },
-    { value: "electronics", label: "Electronics" },
-    { value: "groceries", label: "Groceries" },
-    { value: "other", label: "Other" },
-  ];
-
-  const types = [
-    { value: "expense", label: "Expense" },
-    { value: "income", label: "Income" },
-  ];
   return (
     <Drawer elevation={2} anchor='right' open={open} onClose={onClose}>
       <Container>
@@ -147,12 +138,12 @@ const TransactionDrawer = ({
                         value={values.category}
                         onChange={handleChange}
                       >
-                        {categories.map((category) => {
+                        {Object.keys(categories).map((category) => {
                           return (
                             <FormControlLabel
                               control={<Radio color='primary' />}
-                              value={category.value}
-                              label={category.label}
+                              value={category}
+                              label={categories[category]}
                             />
                           );
                         })}
@@ -166,12 +157,12 @@ const TransactionDrawer = ({
                         value={values.type}
                         onChange={handleChange}
                       >
-                        {types.map((type) => {
+                        {Object.keys(types).map((type) => {
                           return (
                             <FormControlLabel
                               control={<Radio color='primary' />}
-                              value={type.value}
-                              label={type.label}
+                              value={type}
+                              label={types[type]}
                             />
                           );
                         })}

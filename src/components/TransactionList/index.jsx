@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 
 import EditIcon from "@material-ui/icons/Edit";
@@ -10,6 +10,10 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import Input from "@material-ui/core/Input";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
+import FormControl from "@material-ui/core/FormControl";
 
 import TransactionDrawer from "../Drawer";
 import { TrackexContext } from "../../contexts/trackexContext";
@@ -45,9 +49,9 @@ const Grid = styled.div`
   width: 100%;
   padding: 64px;
 `;
-const AddButtonWrapper = styled.div`
+const ActionsWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 
 const TransactionList = () => {
@@ -63,6 +67,9 @@ const TransactionList = () => {
   const [transaction, setTransaction] = useState({});
   const [mode, setMode] = useState(DEFAULT_MODE);
   const [openDialog, setOpenDialog] = useState(false);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+
+  const [search, setSearch] = useState("");
 
   const { categories } = useContext(TrackexContext);
   const addTransaction = (transaction) => {
@@ -123,9 +130,42 @@ const TransactionList = () => {
     setTransaction({});
     setOpenDialog(false);
   };
+
+  const filterByName = () => {
+    console.log("filterByName search", search);
+
+    const _filteredTransactions = transactions.filter((transaction) => {
+      return transaction.name.toLowerCase().includes(search.toLowerCase());
+    });
+    console.log("Filtered transactions", _filteredTransactions);
+    setFilteredTransactions(_filteredTransactions);
+  };
+
+  useEffect(() => {
+    setFilteredTransactions(transactions);
+  }, [transactions]);
+
+  useEffect(() => {
+    filterByName();
+  }, [search]);
+
   return (
     <Grid>
-      <AddButtonWrapper>
+      <ActionsWrapper>
+        <FormControl style={{ width: "65%" }}>
+          <Input
+            placeholder='Search'
+            id='search'
+            startAdornment={
+              <InputAdornment position='start'>
+                <SearchIcon />
+              </InputAdornment>
+            }
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
+          />
+        </FormControl>
         <Button
           onClick={() => {
             console.log("Abrir formulario");
@@ -136,7 +176,7 @@ const TransactionList = () => {
         >
           + Add Transaction
         </Button>
-      </AddButtonWrapper>
+      </ActionsWrapper>
       <Table>
         <thead>
           <tr>
@@ -148,7 +188,7 @@ const TransactionList = () => {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => {
+          {filteredTransactions.map((transaction) => {
             /* console.log("transaction", transaction); */
             return (
               <tr key={transaction.id}>
