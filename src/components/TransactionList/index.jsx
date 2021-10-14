@@ -14,6 +14,8 @@ import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from "@material-ui/icons/Search";
 import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import TransactionDrawer from "../Drawer";
 import { TrackexContext } from "../../contexts/trackexContext";
@@ -21,11 +23,20 @@ import { TrackexContext } from "../../contexts/trackexContext";
 import data from "./data";
 
 const Table = styled.table`
-  width: 100%;
+  width: 80%;
   padding: 16px 0;
   text-align: left;
 `;
 
+const FiltersContainer = styled.div`
+  width: 20%;
+`;
+
+const Main = styled.div`
+  width: 100%;
+  display: flex;
+  padding-top: 32px;
+`;
 const HeadCell = styled.th`
   padding: 16px 0;
   width: 20%;
@@ -72,6 +83,18 @@ const TransactionList = () => {
   const [search, setSearch] = useState("");
 
   const { categories } = useContext(TrackexContext);
+
+  const [categoriesFilter, setCategoriesFilter] = useState(
+    Object.keys(categories).reduce((acc, category) => {
+      acc[category] = { label: categories[category], checked: false };
+      return acc;
+    }, {})
+  );
+
+  // {
+  //   eating_out: { label: 'label1', checked: true},
+  //   clothes: { label: 'label1', checked: false},
+  // }
   const addTransaction = (transaction) => {
     //add new transaction to state
     console.log("addTransaction values", transaction);
@@ -177,50 +200,81 @@ const TransactionList = () => {
           + Add Transaction
         </Button>
       </ActionsWrapper>
-      <Table>
-        <thead>
-          <tr>
-            <HeadCell>Date</HeadCell>
-            <HeadCell>Name</HeadCell>
-            <HeadCell>Category</HeadCell>
-            <HeadCell>Amount</HeadCell>
-            <HeadCell></HeadCell>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredTransactions.map((transaction) => {
-            /* console.log("transaction", transaction); */
-            return (
-              <tr key={transaction.id}>
-                <TableCell>{transaction.date}</TableCell>
-                <TableCell>{transaction.name}</TableCell>
-                <TableCell>{categories[transaction.category]}</TableCell>
-                <TableCell>
-                  <Amount type={transaction.type}>{transaction.amount}</Amount>
-                </TableCell>
+      <Main>
+        <FiltersContainer>
+          <h2>Filters</h2>
+          <h3>Category</h3>
+          {categoriesFilter &&
+            Object.keys(categoriesFilter).map((category) => {
+              return (
+                <FormControlLabel
+                  control={
+                    <Checkbox checked={categoriesFilter[category].checked} />
+                  }
+                  name={category}
+                  label={categoriesFilter[category].label}
+                  onChange={(e) => {
+                    const newCategoriesState = {
+                      ...categoriesFilter,
+                      [category]: {
+                        label: categoriesFilter[category].label,
+                        checked: e.target.checked,
+                      },
+                    };
+                    console.log(newCategoriesState);
+                    setCategoriesFilter(newCategoriesState);
+                  }}
+                />
+              );
+            })}
+        </FiltersContainer>
+        <Table>
+          <thead>
+            <tr>
+              <HeadCell>Date</HeadCell>
+              <HeadCell>Name</HeadCell>
+              <HeadCell>Category</HeadCell>
+              <HeadCell>Amount</HeadCell>
+              <HeadCell></HeadCell>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredTransactions.map((transaction) => {
+              /* console.log("transaction", transaction); */
+              return (
+                <tr key={transaction.id}>
+                  <TableCell>{transaction.date}</TableCell>
+                  <TableCell>{transaction.name}</TableCell>
+                  <TableCell>{categories[transaction.category]}</TableCell>
+                  <TableCell>
+                    <Amount type={transaction.type}>
+                      {transaction.amount}
+                    </Amount>
+                  </TableCell>
 
-                <TableCell>
-                  <EditIcon
-                    style={{ marginRight: "16px" }}
-                    onClick={() => {
-                      console.log("editar transacción");
-                      handleEdit(transaction.id);
-                    }}
-                  />
+                  <TableCell>
+                    <EditIcon
+                      style={{ marginRight: "16px" }}
+                      onClick={() => {
+                        console.log("editar transacción");
+                        handleEdit(transaction.id);
+                      }}
+                    />
 
-                  <DeleteForeverIcon
-                    style={{ color: "#F94144" }}
-                    onClick={() => {
-                      console.log("borrar transacción");
-                      handleDelete(transaction.id);
-                    }}
-                  />
-                </TableCell>
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
+                    <DeleteForeverIcon
+                      style={{ color: "#F94144" }}
+                      onClick={() => {
+                        console.log("borrar transacción");
+                        handleDelete(transaction.id);
+                      }}
+                    />
+                  </TableCell>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </Main>
       <TransactionDrawer
         open={open}
         onClose={() => {
