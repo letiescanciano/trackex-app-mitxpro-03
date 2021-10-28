@@ -1,0 +1,289 @@
+{
+  "transactions": [
+    {
+      "name": "Coffe",
+      "date": "2021-06-04",
+      "amount": 4.5,
+      "category": "eating_out",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.321Z",
+      "updated_at": "2021-10-28T16:24:52.321Z",
+      "id": "499e4841-0981-481b-ae17-634ed24d6e46"
+    },
+    {
+      "name": "iPad",
+      "date": "2021-06-04",
+      "amount": 900,
+      "created_at": "2021-10-28T16:24:52.361Z",
+      "updated_at": "2021-10-28T16:24:52.361Z",
+      "id": "a7288965-fc43-40f9-afb1-b51d25c7ea05"
+    },
+    {
+      "name": "t-shirts",
+      "date": "2021-06-02",
+      "amount": 900,
+      "category": "electronics",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.362Z",
+      "updated_at": "2021-10-28T16:24:52.362Z",
+      "id": "47184ac0-b906-4c31-b5c4-d49479c173db"
+    },
+    {
+      "name": "t-shirts",
+      "date": "2021-06-02",
+      "amount": 9,
+      "category": "electronics",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.363Z",
+      "updated_at": "2021-10-28T16:24:52.363Z",
+      "id": "326cf51f-f497-4892-b4a4-f1efb915b433"
+    },
+    {
+      "name": "t-shirts",
+      "date": "2021-05-02",
+      "amount": 9,
+      "category": "electronics",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.364Z",
+      "updated_at": "2021-10-28T16:24:52.364Z",
+      "id": "6839482e-bee3-4c83-a388-7e12e8ae845d"
+    },
+    {
+      "name": "sneakers",
+      "date": "2021-05-02",
+      "amount": 233,
+      "created_at": "2021-10-28T16:24:52.365Z",
+      "updated_at": "2021-10-28T16:24:52.365Z",
+      "id": "0effe2ff-6f80-4715-991c-9536f4d250c3"
+    },
+    {
+      "name": "sneakers",
+      "date": "2020-05-02",
+      "amount": 34,
+      "category": "clothes",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.365Z",
+      "updated_at": "2021-10-28T16:24:52.365Z",
+      "id": "d2c5192d-d216-4d03-ab26-4f794d4c410c"
+    },
+    {
+      "name": "ice cream",
+      "date": "2020-05-02",
+      "amount": 34,
+      "category": "eating_out",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.366Z",
+      "updated_at": "2021-10-28T16:24:52.366Z",
+      "id": "7c7e57df-593b-4207-a31a-f2b8a92df441"
+    },
+    {
+      "name": "payslip",
+      "date": "2020-12-01",
+      "amount": 4400,
+      "category": "salary",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.367Z",
+      "updated_at": "2021-10-28T16:24:52.367Z",
+      "id": "a10ad8b5-b957-43b1-870b-8d8f28cbedab"
+    },
+    {
+      "name": "payslip",
+      "date": "2021-01-01",
+      "amount": 3400,
+      "category": "eating_out",
+      "created_at": "2021-10-28T16:24:52.370Z",
+      "updated_at": "2021-10-28T16:24:52.370Z",
+      "id": "d176d6f8-70f2-4249-b7ff-1c60d602e32c"
+    },
+    {
+      "name": "payslip",
+      "date": "2021-01-01",
+      "amount": 3400,
+      "category": "salary",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.384Z",
+      "updated_at": "2021-10-28T16:24:52.384Z",
+      "id": "c4d75d62-94d7-403a-abb3-8c31595b452c"
+    },
+    {
+      "name": "payslip",
+      "date": "2021-02-01",
+      "amount": 3400,
+      "category": "salary",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.400Z",
+      "updated_at": "2021-10-28T16:24:52.400Z",
+      "id": "8bc24741-5bc6-46d3-83b7-dbd6fedd5912"
+    },
+    {
+      "name": "payslip",
+      "date": "2021-03-01",
+      "amount": 3400,
+      "category": "salary",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.485Z",
+      "updated_at": "2021-10-28T16:24:52.485Z",
+      "id": "4c18ac69-1f68-4570-a6e2-0227f9ced7fa"
+    },
+    {
+      "name": "payslip",
+      "date": "2021-04-01",
+      "amount": 3400,
+      "category": "salary",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.491Z",
+      "updated_at": "2021-10-28T16:24:52.491Z",
+      "id": "4f71e49e-3086-4e47-b34e-a862dad89084"
+    },
+    {
+      "name": "payslip",
+      "date": "2021-05-01",
+      "amount": 3400,
+      "category": "salary",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.506Z",
+      "updated_at": "2021-10-28T16:24:52.506Z",
+      "id": "ddceed08-4d17-415e-864c-b963add14822"
+    },
+    {
+      "name": "payslip",
+      "date": "2021-06-01",
+      "amount": 3400,
+      "category": "salary",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.517Z",
+      "updated_at": "2021-10-28T16:24:52.517Z",
+      "id": "078d144f-08b1-4bb5-8d09-389b5e5a0f08"
+    },
+    {
+      "name": "headphones",
+      "date": "2021-06-08",
+      "amount": 400,
+      "category": "electronics",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.552Z",
+      "updated_at": "2021-10-28T16:24:52.552Z",
+      "id": "a2fffb54-e567-467d-9320-3c069330a450"
+    },
+    {
+      "name": "Natacion",
+      "date": "2021-06-08",
+      "amount": 333,
+      "category": "electronics",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.553Z",
+      "updated_at": "2021-10-28T16:24:52.553Z",
+      "id": "0ac00be8-4c40-40d2-9b28-d2206e81a32e"
+    },
+    {
+      "name": "Natacion",
+      "date": "2021-06-08",
+      "amount": 333,
+      "category": "clothes",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.585Z",
+      "updated_at": "2021-10-28T16:24:52.585Z",
+      "id": "faefcd1b-ff49-4a59-bb2e-28cdaeae9a4b"
+    },
+    {
+      "name": "asfdasfafas",
+      "date": "2021-06-08",
+      "amount": 3333342,
+      "category": "eating_out",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.642Z",
+      "updated_at": "2021-10-28T16:24:52.642Z",
+      "id": "bc26e6a4-621b-4608-8fbe-0234a4da2d8e"
+    },
+    {
+      "name": "Natacion",
+      "date": "2021-06-08",
+      "amount": 333,
+      "category": "eating_out",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.646Z",
+      "updated_at": "2021-10-28T16:24:52.646Z",
+      "id": "49acdff5-b812-4d2d-b32b-e95c47ad1318"
+    },
+    {
+      "name": "Natacionfdsasaf",
+      "date": "2021-06-08",
+      "amount": 333,
+      "category": "eating_out",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.648Z",
+      "updated_at": "2021-10-28T16:24:52.648Z",
+      "id": "36d37d77-31ce-4c4a-a6da-def0fa54f130"
+    },
+    {
+      "name": "Natacion342",
+      "date": "2021-06-08",
+      "amount": 150,
+      "category": "groceries",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.650Z",
+      "updated_at": "2021-10-28T16:24:52.650Z",
+      "id": "14cf96de-1d96-48be-858e-0c266fc5d615"
+    },
+    {
+      "name": "macbook",
+      "date": "2021-06-08",
+      "amount": 3333,
+      "category": "eating_out",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.652Z",
+      "updated_at": "2021-10-28T16:24:52.652Z",
+      "id": "95c63e42-9533-4919-87c5-7fcb7617cd19"
+    },
+    {
+      "name": "Natacion",
+      "date": "2021-06-08",
+      "amount": 333,
+      "category": "eating_out",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.654Z",
+      "updated_at": "2021-10-28T16:24:52.654Z",
+      "id": "89422f50-9733-4e61-91ba-8162dc9f80d6"
+    },
+    {
+      "name": "3423",
+      "date": "2020-05-22",
+      "amount": 342,
+      "category": "eating_out",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.664Z",
+      "updated_at": "2021-10-28T16:24:52.664Z",
+      "id": "45ffe51b-8e38-4a61-b8d3-6df5f8eee71b"
+    },
+    {
+      "name": "sdfas",
+      "date": "2020-11-08",
+      "amount": 3432,
+      "category": "eating_out",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.723Z",
+      "updated_at": "2021-10-28T16:24:52.723Z",
+      "id": "d6abfb65-6b81-4a3d-8f7f-7a35a0477bb9"
+    },
+    {
+      "name": "pr ",
+      "date": "2020-11-08",
+      "amount": 3450,
+      "category": "electronics",
+      "type": "expense",
+      "created_at": "2021-10-28T16:24:52.723Z",
+      "updated_at": "2021-10-28T16:24:52.723Z",
+      "id": "a54854e8-30a3-48f2-8e68-112e2ea4c0b9"
+    },
+    {
+      "name": "Natacion",
+      "date": "2021-06-08",
+      "amount": 333,
+      "category": "eating_out",
+      "type": "income",
+      "created_at": "2021-10-28T16:24:52.782Z",
+      "updated_at": "2021-10-28T16:24:52.782Z",
+      "id": "c173ccab-7d23-45a2-89fb-f139b8262e22"
+    }
+  ]
+}
