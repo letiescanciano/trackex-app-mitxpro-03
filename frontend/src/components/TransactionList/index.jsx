@@ -19,7 +19,7 @@ import TransactionDrawer from "../Drawer";
 import { Filters } from "../Filters";
 import { TrackexContext } from "../../contexts/trackexContext";
 
-import data from "./data";
+import { transactionsAPI } from "../../services/transactions";
 
 const Table = styled.table`
   width: 80%;
@@ -69,7 +69,7 @@ const TransactionList = () => {
   const DEFAULT_MODE = "add";
 
   const [open, setOpen] = useState(false);
-  const [transactions, setTransactions] = useState(data);
+  const [transactions, setTransactions] = useState([]);
   const [transaction, setTransaction] = useState({});
   const [mode, setMode] = useState(DEFAULT_MODE);
   const [openDialog, setOpenDialog] = useState(false);
@@ -79,6 +79,17 @@ const TransactionList = () => {
 
   const { categories } = useContext(TrackexContext);
 
+  useEffect(() => {
+    const getTransactions = async () => {
+      try {
+        const response = await transactionsAPI.all();
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getTransactions();
+  }, []);
   const addTransaction = (transaction) => {
     //add new transaction to state
     console.log("addTransaction values", transaction);
