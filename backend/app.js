@@ -1,15 +1,19 @@
 const express = require("express");
 const app = express();
+const cors = require('cors')
+const low = require('lowdb')
+const FileSync = require('lowdb/adapters/FileSync')
 
-const low = require("lowdb");
-const FileSync = require("lowdb/adapters/FileSync");
+const adapter = new FileSync('db.json')
+const db = low(adapter)
 
-const adapter = new FileSync("db.json");
-const db = low(adapter);
+const lodashId = require('lodash-id')
+db._.mixin(lodashId)
 
-const lodashId = require("lodash-id");
-db._.mixin(lodashId);
-
+const corsOptions = {
+  origin: 'http://localhost:3000',
+}
+app.use(cors(corsOptions))
 // REST API - CRUD (Create, Read, Update, Delete)
 
 app.use(express.json()); // for parsing application/json

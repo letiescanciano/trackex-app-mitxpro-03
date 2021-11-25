@@ -82,23 +82,32 @@ const TransactionList = () => {
   useEffect(() => {
     const getTransactions = async () => {
       try {
-        const response = await transactionsAPI.all();
-        console.log(response);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    getTransactions();
-  }, []);
-  const addTransaction = (transaction) => {
-    //add new transaction to state
-    console.log("addTransaction values", transaction);
-    // const _transactions = [...transactions];
-    // _transactions.push(transaction);
-    // setTransactions(_transactions);
+        const { data, status } = await transactionsAPI.all()
 
-    setTransactions([...transactions, { ...transaction }]);
-  };
+        if (status === 200) {
+          setTransactions(data)
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
+    getTransactions()
+  }, [])
+
+  const addTransaction = async transaction => {
+    //add new transaction to state
+    console.log('addTransaction values', transaction)
+
+    try {
+      const { data, status } = await transactionsAPI.create(transaction)
+      console.log(data)
+      if (status === 201) {
+        setTransactions([...transactions, { ...data }])
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const handleDelete = (id) => {
     console.log("delete", id);
