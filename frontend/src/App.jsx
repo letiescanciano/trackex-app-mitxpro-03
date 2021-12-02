@@ -1,79 +1,85 @@
-import "./App.css";
+import './App.css'
+import { NavBar } from './components/NavBar'
+import { TransactionList } from './components/TransactionList'
+import { MuiThemeProvider, createTheme } from '@material-ui/core/styles'
+import { TrackexProvider } from './contexts/trackexContext'
+import { Login } from './components/Auth/Login'
+import { AuthProvider } from './contexts/AuthContext'
 
-import { NavBar } from "./components/NavBar";
-import { TransactionList } from "./components/TransactionList";
-import { MuiThemeProvider, createTheme } from "@material-ui/core/styles";
-import { TrackexProvider } from "./contexts/trackexContext";
+require('dotenv').config()
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#FF7661",
-      contrastText: "#fff",
+      main: '#FF7661',
+      contrastText: '#fff',
     },
     text: {
-      primary: "#fff",
+      primary: '#fff',
     },
   },
   overrides: {
     MuiFormLabel: {
       root: {
-        color: "#fff",
-        fontWeight: "normal",
+        color: '#fff',
+        fontWeight: 'normal',
       },
     },
     MuiInput: {
       underline: {
-        "&:before": {
-          borderBottom: "1px solid #FF7661",
+        '&:before': {
+          borderBottom: '1px solid #FF7661',
         },
-        "&:hover": {
-          borderBottom: "1px solid #FF7661",
+        '&:hover': {
+          borderBottom: '1px solid #FF7661',
         },
       },
     },
     MuiFormLabel: {
       root: {
-        color: "#fff",
+        color: '#fff',
         fontWeight: 600,
-        paddingBottom: "16px",
+        paddingBottom: '16px',
       },
     },
     MuiRadio: {
       root: {
-        color: "#fff",
+        color: '#fff',
       },
     },
     MuiPaper: {
       root: {
-        backgroundColor: "#1C2633",
-        color: "white",
+        backgroundColor: '#1C2633',
+        color: 'white',
       },
     },
     MuiDialogContent: {
       root: {
-        color: "white",
+        color: 'white',
       },
     },
     MuiDialogContentText: {
       root: {
-        color: "white",
+        color: 'white',
       },
     },
   },
-});
+})
 
 function App() {
   return (
-    <TrackexProvider>
-      <MuiThemeProvider theme={theme}>
-        <div className='layout'>
-          {/* <NavBar /> */}
+    <AuthProvider>
+      <TrackexProvider>
+        <MuiThemeProvider theme={theme}>
+          {/* <div className='layout'>
+          <NavBar />
           <TransactionList />
-        </div>
-      </MuiThemeProvider>
-    </TrackexProvider>
-  );
+        </div> */}
+          <Login></Login>
+        </MuiThemeProvider>
+      </TrackexProvider>
+    </AuthProvider>
+  )
 }
 
-export default App;
+export default App

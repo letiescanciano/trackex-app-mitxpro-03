@@ -114,44 +114,58 @@ const TransactionList = () => {
     setTransaction({ id });
     setOpenDialog(true);
   };
-  const deleteTransaction = () => {
-    const { id } = transaction;
-    console.log("deleteTransaction id", id);
-    const _transactions = transactions.filter(
-      (transaction) => transaction.id !== id
-    );
+  const deleteTransaction = async () => {
+    const { id } = transaction
 
-    // console.log("_transactions", _transactions);
-    setTransactions(_transactions);
-    setOpenDialog(false);
-    setTransaction({});
-  };
+    try {
+      const { data, status } = await transactionsAPI.delete(id)
+      console.log('delete data', data)
+      if (status === 200) {
+        console.log('deleteTransaction id', id)
+        const _transactions = transactions.filter(
+          transaction => transaction.id !== id
+        )
 
-  const handleEdit = (id) => {
+        // console.log("_transactions", _transactions);
+        setTransactions(_transactions)
+        setOpenDialog(false)
+        setTransaction({})
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleEdit = id => {
     // Activate Edit mode
-    setMode(AVAILABLE_MODES.edit);
+    setMode(AVAILABLE_MODES.edit)
     // Search for our transaction
-    const transaction = transactions.find(
-      (transaction) => transaction.id === id
-    );
-    setTransaction(transaction);
+    const transaction = transactions.find(transaction => transaction.id === id)
+    setTransaction(transaction)
     // Open the drawer
-    setOpen(true);
+    setOpen(true)
 
     // Update state with the updated transaction
-  };
+  }
 
-  const editTransaction = (data) => {
-    const _transactionIndex = transactions.findIndex(
-      (transaction) => transaction.id === data.id
-    );
-    const _transactions = [...transactions];
-    _transactions[_transactionIndex] = data;
+  const editTransaction = async transactionData => {
+    try {
+      const { data, status } = await transactionsAPI.update(transactionData)
+      if (status == 200) {
+        const _transactionIndex = transactions.findIndex(
+          transaction => transaction.id === data.id
+        )
+        const _transactions = [...transactions]
+        _transactions[_transactionIndex] = data
 
-    setTransactions(_transactions);
-    setMode(DEFAULT_MODE);
-    setTransaction({});
-  };
+        setTransactions(_transactions)
+        setMode(DEFAULT_MODE)
+        setTransaction({})
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const handleClose = () => {
     setTransaction({});
