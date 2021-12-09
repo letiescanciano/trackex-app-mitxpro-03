@@ -1,13 +1,13 @@
 {
   "transactions": [
     {
-      "name": "Coffe",
+      "name": "Coffe Frontend",
       "date": "2021-06-04",
       "amount": 4.5,
       "category": "eating_out",
       "type": "expense",
       "created_at": "2021-11-11T16:47:31.497Z",
-      "updated_at": "2021-11-11T16:47:31.497Z",
+      "updated_at": "2021-12-02T16:55:52.541Z",
       "id": "23911660-3753-49d2-9ed6-f561c8b4f692"
     },
     {
@@ -47,14 +47,6 @@
       "created_at": "2021-11-11T16:47:31.566Z",
       "updated_at": "2021-11-11T16:47:31.566Z",
       "id": "5d1a14df-3624-4d79-bd33-c4717c9d9b5d"
-    },
-    {
-      "name": "sneakers",
-      "date": "2021-05-02",
-      "amount": 233,
-      "created_at": "2021-11-11T16:47:31.567Z",
-      "updated_at": "2021-11-11T16:47:31.567Z",
-      "id": "4cef17d1-cfc5-4cfb-9c89-14f9536fc01d"
     },
     {
       "name": "sneakers",
@@ -300,26 +292,6 @@
       "created_at": "2021-11-25T17:26:45.321Z",
       "updated_at": "2021-11-25T17:26:45.321Z",
       "id": "a3081739-6a4e-451e-93fd-961b47a1ec83"
-    },
-    {
-      "created_at": "2021-11-25T17:27:40.990Z",
-      "updated_at": "2021-11-25T17:27:40.990Z",
-      "id": "eb433995-d29c-4198-a4fe-9b17f5de7b5c"
-    },
-    {
-      "created_at": "2021-11-25T17:29:20.976Z",
-      "updated_at": "2021-11-25T17:29:20.976Z",
-      "id": "f8e175e1-73c7-453d-baf6-ab92d77287a4"
-    },
-    {
-      "name": "created from frontendº",
-      "date": "2021-11-21",
-      "amount": 3242,
-      "category": "eating_out",
-      "type": "expense",
-      "created_at": "2021-11-25T17:31:04.922Z",
-      "updated_at": "2021-11-25T17:31:04.922Z",
-      "id": "a6762486-ae6b-4565-8a20-4bfebd99dfc4"
     }
   ]
 }
