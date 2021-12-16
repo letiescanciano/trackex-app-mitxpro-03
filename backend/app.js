@@ -6,6 +6,9 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const firebase = require('./config/firebase')
 const User = require('./models/User')
+const Transaction = require('./models/Transaction')
+
+const decodeToken = require('./middlewares/auth')
 mongoose
   .connect(process.env.DB, {
     useNewUrlParser: true,
@@ -50,74 +53,85 @@ app.post('/signup', async (req, res) => {
   }
 })
 
+app.use(decodeToken)
 // Read all
-// app.get("/transactions", (req, res) => {
-//   const transactions = db.get("transactions").value();
-//   console.log(transactions);
-//   res.status(200).json(transactions);
-//   //   response.send("<h1>Hola</h1><ul><li>list 1</li></ul>");
-// });
+app.get('/transactions', async (req, res) => {
+  console.log(req.headers)
+  try {
+    const user = await User.findOne({ firebaseId: req.user.uid })
+    const transactions = await Transaction.find({ userId: user._id })
+    res.status(200).json(transactions)
+  } catch (err) {
+    res.status(404).json({ message: 'Bad request' })
+  }
+})
 
 // //Create a transaction
-// app.post("/transactions", (req, res) => {
-//   console.log("body", req.body);
-//   const { name, date, amount, category, type } = req.body;
-//   const newTransaction = {
-//     name,
-//     date,
-//     amount,
-//     category,
-//     type,
-//     created_at: new Date(),
-//     updated_at: new Date(),
-//   };
-//   const createdTransaction = db
-//     .get("transactions")
-//     .insert(newTransaction)
-//     .write();
+app.post('/transactions', async (req, res) => {
+  console.log('body', req.body)
+  const { name, date, amount, category, type } = req.body
+  const user = await User.findOne({ firebaseId: req.user.uid })
 
-//   res.status(201).json(createdTransaction);
-// });
+  const newTransaction = {
+    name,
+    date,
+    amount,
+    category,
+    type,
+    userId: user._id,
+  }
+  try {
+    const createdTransaction = await Transaction.create(newTransaction)
+    console.log(createdTransaction)
+    if (createdTransaction) {
+      res.status(201).json(createdTransaction)
+    }
+  } catch (err) {
+    console.log(err)
+  }
+})
 
 // //Update a transaction
-// app.put("/transactions/:id", (req, res) => {
-//   const { id } = req.params;
-//   const { name, date, amount, category, type } = req.body;
+app.put('/transactions/:id', async (req, res) => {
+  const { id } = req.params
 
-//   const updatedTransaction = db
-//     .get("transactions")
-//     .updateById(id, {
-//       name,
-//       date,
-//       amount,
-//       category,
-//       type,
-//       updated_at: new Date(),
-//     })
-//     .write();
+  try {
+    const updatedTransaction = await Transaction.findByIdAndUpdate(
+      id,
+      {
+        ...req.body,
+      },
+      { new: true }
+    )
+    if (updatedTransaction) {
+      res.status(200).json(updatedTransaction)
+    } else {
+      res.status(404).json({ message: 'Resource not found' })
+    }
+  } catch (err) {
+    console.log(err)
+  }
 
-//   if (updatedTransaction) {
-//     res.status(200).json(updatedTransaction);
-//   } else {
-//     res.status(404).json({ message: "Resource not found" });
-//   }
-// });
+  if (updatedTransaction) {
+    res.status(200).json(updatedTransaction)
+  } else {
+    res.status(404).json({ message: 'Resource not found' })
+  }
+})
 
 // //Delete a transaction
-// app.delete("/transactions/:id", (req, res) => {
-//   const { id } = req.params;
-//   const deletedTransaction = db.get("transactions").removeById(id).write();
+app.delete('/transactions/:id', async (req, res) => {
+  const { id } = req.params
 
-//   if (deletedTransaction) {
-//     res.status(200).json(deletedTransaction);
-//   } else {
-//     res
-//       .status(404)
-//       .json({
-//         message: `Couldn't delete resource. Please try again`,
-//         id,
-//         tried_at: new Date(),
-//       });
-//   }
-// });
+  try {
+    const deletedTransaction = await Transaction.findByIdAndDelete(id)
+    if (deletedTransaction) {
+      res.status(200).json(deletedTransaction)
+    } else {
+      res.status(404).json({ message: 'Resource not found' })
+    }
+  } catch (e) {
+    console.log(e)
+  }
+})
 app.listen(3001, () => console.log('Server listening on port 3001'))
