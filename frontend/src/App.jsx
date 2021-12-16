@@ -1,11 +1,11 @@
 import './App.css'
-import { NavBar } from './components/NavBar'
-import { TransactionList } from './components/TransactionList'
+
 import { MuiThemeProvider, createTheme } from '@material-ui/core/styles'
 import { TrackexProvider } from './contexts/trackexContext'
-import { Login } from './components/Auth/Login'
 import { AuthProvider } from './contexts/AuthContext'
+import { BrowserRouter } from 'react-router-dom'
 
+import { AppRoutes } from './components/AppRoutes'
 require('dotenv').config()
 
 const theme = createTheme({
@@ -68,17 +68,15 @@ const theme = createTheme({
 
 function App() {
   return (
-    <AuthProvider>
-      <TrackexProvider>
-        <MuiThemeProvider theme={theme}>
-          {/* <div className='layout'>
-          <NavBar />
-          <TransactionList />
-        </div> */}
-          <Login></Login>
-        </MuiThemeProvider>
-      </TrackexProvider>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <TrackexProvider>
+          <MuiThemeProvider theme={theme}>
+            <AppRoutes />
+          </MuiThemeProvider>
+        </TrackexProvider>
+      </AuthProvider>
+    </BrowserRouter>
   )
 }
 

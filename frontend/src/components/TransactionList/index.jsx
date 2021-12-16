@@ -61,23 +61,24 @@ const ActionsWrapper = styled.div`
 `;
 
 const TransactionList = () => {
+  console.log('Transaction List')
   const AVAILABLE_MODES = {
-    add: "add",
-    edit: "edit",
-  };
+    add: 'add',
+    edit: 'edit',
+  }
 
-  const DEFAULT_MODE = "add";
+  const DEFAULT_MODE = 'add'
 
-  const [open, setOpen] = useState(false);
-  const [transactions, setTransactions] = useState([]);
-  const [transaction, setTransaction] = useState({});
-  const [mode, setMode] = useState(DEFAULT_MODE);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [open, setOpen] = useState(false)
+  const [transactions, setTransactions] = useState([])
+  const [transaction, setTransaction] = useState({})
+  const [mode, setMode] = useState(DEFAULT_MODE)
+  const [openDialog, setOpenDialog] = useState(false)
+  const [filteredTransactions, setFilteredTransactions] = useState([])
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('')
 
-  const { categories } = useContext(TrackexContext);
+  const { categories } = useContext(TrackexContext)
 
   useEffect(() => {
     const getTransactions = async () => {
@@ -109,11 +110,11 @@ const TransactionList = () => {
     }
   }
 
-  const handleDelete = (id) => {
-    console.log("delete", id);
-    setTransaction({ id });
-    setOpenDialog(true);
-  };
+  const handleDelete = id => {
+    console.log('delete', id)
+    setTransaction({ id })
+    setOpenDialog(true)
+  }
   const deleteTransaction = async () => {
     const { id } = transaction
 
@@ -123,7 +124,7 @@ const TransactionList = () => {
       if (status === 200) {
         console.log('deleteTransaction id', id)
         const _transactions = transactions.filter(
-          transaction => transaction.id !== id
+          transaction => transaction._id !== id
         )
 
         // console.log("_transactions", _transactions);
@@ -140,7 +141,7 @@ const TransactionList = () => {
     // Activate Edit mode
     setMode(AVAILABLE_MODES.edit)
     // Search for our transaction
-    const transaction = transactions.find(transaction => transaction.id === id)
+    const transaction = transactions.find(transaction => transaction._id === id)
     setTransaction(transaction)
     // Open the drawer
     setOpen(true)
@@ -153,7 +154,7 @@ const TransactionList = () => {
       const { data, status } = await transactionsAPI.update(transactionData)
       if (status == 200) {
         const _transactionIndex = transactions.findIndex(
-          transaction => transaction.id === data.id
+          transaction => transaction._id === data._id
         )
         const _transactions = [...transactions]
         _transactions[_transactionIndex] = data
@@ -168,65 +169,65 @@ const TransactionList = () => {
   }
 
   const handleClose = () => {
-    setTransaction({});
-    setOpenDialog(false);
-  };
+    setTransaction({})
+    setOpenDialog(false)
+  }
 
   const filterByName = () => {
-    console.log("filterByName search", search);
+    console.log('filterByName search', search)
 
-    const _filteredTransactions = transactions.filter((transaction) => {
-      return transaction.name.toLowerCase().includes(search.toLowerCase());
-    });
-    console.log("Filtered transactions", _filteredTransactions);
-    setFilteredTransactions(_filteredTransactions);
-  };
+    const _filteredTransactions = transactions.filter(transaction => {
+      return transaction.name.toLowerCase().includes(search.toLowerCase())
+    })
+    console.log('Filtered transactions', _filteredTransactions)
+    setFilteredTransactions(_filteredTransactions)
+  }
 
-  const filterByCategory = (categoriesFilter) => {
-    console.log("filterByCategory");
+  const filterByCategory = categoriesFilter => {
+    console.log('filterByCategory')
     const checked = Object.keys(categoriesFilter).filter(
-      (category) => categoriesFilter[category].checked
-    );
+      category => categoriesFilter[category].checked
+    )
 
     // if no checkbox selected --> transactions = original array
     if (checked.length === 0) {
-      setFilteredTransactions(transactions);
+      setFilteredTransactions(transactions)
     } else {
       // if some checkbox is selected --> filterTransactions
-      const _filteredTransactions = transactions.filter((transaction) => {
-        return categoriesFilter[transaction.category].checked;
-      });
-      setFilteredTransactions(_filteredTransactions);
+      const _filteredTransactions = transactions.filter(transaction => {
+        return categoriesFilter[transaction.category].checked
+      })
+      setFilteredTransactions(_filteredTransactions)
     }
-  };
+  }
 
-  const filterByType = (typesFilter) => {
+  const filterByType = typesFilter => {
     const checked = Object.keys(typesFilter).filter(
-      (type) => typesFilter[type].checked
-    );
+      type => typesFilter[type].checked
+    )
 
     if (checked.length === 0) {
-      setFilteredTransactions(transactions);
+      setFilteredTransactions(transactions)
     } else {
-      const _filteredTransactions = transactions.filter((transaction) => {
-        return typesFilter[transaction.type].checked;
-      });
-      setFilteredTransactions(_filteredTransactions);
+      const _filteredTransactions = transactions.filter(transaction => {
+        return typesFilter[transaction.type].checked
+      })
+      setFilteredTransactions(_filteredTransactions)
     }
-  };
+  }
 
   useEffect(() => {
-    setFilteredTransactions(transactions);
-  }, [transactions]);
+    setFilteredTransactions(transactions)
+  }, [transactions])
 
   useEffect(() => {
-    filterByName();
-  }, [search]);
+    filterByName()
+  }, [search])
 
   return (
     <Grid>
       <ActionsWrapper>
-        <FormControl style={{ width: "65%" }}>
+        <FormControl style={{ width: '65%' }}>
           <Input
             placeholder='Search'
             id='search'
@@ -235,15 +236,15 @@ const TransactionList = () => {
                 <SearchIcon />
               </InputAdornment>
             }
-            onChange={(event) => {
-              setSearch(event.target.value);
+            onChange={event => {
+              setSearch(event.target.value)
             }}
           />
         </FormControl>
         <Button
           onClick={() => {
-            console.log("Abrir formulario");
-            setOpen(true);
+            console.log('Abrir formulario')
+            setOpen(true)
           }}
           color='primary'
           variant='contained'
@@ -267,10 +268,10 @@ const TransactionList = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredTransactions.map((transaction) => {
+            {filteredTransactions.map(transaction => {
               /* console.log("transaction", transaction); */
               return (
-                <tr key={transaction.id}>
+                <tr key={transaction._id}>
                   <TableCell>{transaction.date}</TableCell>
                   <TableCell>{transaction.name}</TableCell>
                   <TableCell>{categories[transaction.category]}</TableCell>
@@ -282,23 +283,23 @@ const TransactionList = () => {
 
                   <TableCell>
                     <EditIcon
-                      style={{ marginRight: "16px" }}
+                      style={{ marginRight: '16px' }}
                       onClick={() => {
-                        console.log("editar transacción");
-                        handleEdit(transaction.id);
+                        console.log('editar transacción')
+                        handleEdit(transaction._id)
                       }}
                     />
 
                     <DeleteForeverIcon
-                      style={{ color: "#F94144" }}
+                      style={{ color: '#F94144' }}
                       onClick={() => {
-                        console.log("borrar transacción");
-                        handleDelete(transaction.id);
+                        console.log('borrar transacción')
+                        handleDelete(transaction._id)
                       }}
                     />
                   </TableCell>
                 </tr>
-              );
+              )
             })}
           </tbody>
         </Table>
@@ -306,8 +307,8 @@ const TransactionList = () => {
       <TransactionDrawer
         open={open}
         onClose={() => {
-          console.log("close");
-          setOpen(false);
+          console.log('close')
+          setOpen(false)
         }}
         mode={mode}
         data={transaction}
@@ -340,7 +341,7 @@ const TransactionList = () => {
         </Dialog>
       )}
     </Grid>
-  );
+  )
 };
 
 export { TransactionList };

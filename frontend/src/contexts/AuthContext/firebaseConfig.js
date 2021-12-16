@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 require('dotenv').config()
-console.log(process.env.FIREBASE_API_KEY)
+
 initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -14,5 +14,6 @@ initializeApp({
 const auth = getAuth()
 const firebase = {
   login: (email, password) => signInWithEmailAndPassword(auth, email, password),
+  logout: () => signOut(auth),
 }
 export default firebase
